@@ -43,7 +43,7 @@ jobs:
       - name: Run tests
         run: dotnet test -e BROWSER=chromium --logger trx --results-directory "TestResults-6.0.x"
       - name: Install trx-to-html report generator
-        run: cd TestResults-6.0.x | dotnet tool install -g Samhammer.TrxToHtml
+        run: dotnet tool install -g Samhammer.TrxToHtml
       - name: Run trx-to-html to generate html report
         run: cd TestResults-6.0.x | trx-to-html
       - name: Move and rename trx-to-html generated html report
