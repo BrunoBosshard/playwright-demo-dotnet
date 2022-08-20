@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32804.467
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "playwright-demo-dotnet", "playwright-demo-dotnet\playwright-demo-dotnet.csproj", "{F4A2B3B8-8BD5-42E6-88E2-2850600C04DF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5E742C13-B3FB-499D-A0F5-B37129E2C318}"
+	ProjectSection(SolutionItems) = preProject
+		.runsettings = .runsettings
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F4A2B3B8-8BD5-42E6-88E2-2850600C04DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4A2B3B8-8BD5-42E6-88E2-2850600C04DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F4A2B3B8-8BD5-42E6-88E2-2850600C04DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F4A2B3B8-8BD5-42E6-88E2-2850600C04DF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D5825C2E-DC77-4EE5-9DD6-AA946E8D862C}
+	EndGlobalSection
+EndGlobal
