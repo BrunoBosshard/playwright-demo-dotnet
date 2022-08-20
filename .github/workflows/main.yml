@@ -25,7 +25,8 @@ jobs:
           keep_minimum_runs: 10
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Setup .NET Core SDK '6.0.x'
+      # Version 3.1.x is required for trx-to-html only
+      - name: Setup .NET Core SDK
         uses: actions/setup-dotnet@v2
         with:
           dotnet-version: | 
@@ -43,8 +44,10 @@ jobs:
         run: dotnet test -e BROWSER=chromium --logger trx --results-directory "TestResults-6.0.x"
       - name: Install trx-to-html
         run: cd TestResults-6.0.x | dotnet tool install -g Samhammer.TrxToHtml
-      - name: Execute trx-to-html
+      - name: Run trx-to-html
         run: cd TestResults-6.0.x | trx-to-html
+      - name: Move and rename html report
+        run: mv ./TestResults.html ./TestResults-6.0.x/index.html
       - name: Upload test results
         uses: actions/upload-artifact@v3
         with:
