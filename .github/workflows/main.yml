@@ -1,0 +1,56 @@
+name: Playwright demo dotnet tests
+on:
+  push:
+  workflow_dispatch:
+  schedule:
+    # run 5 minutes past every 3rd hour starting at 2 AM
+    - cron: '5 2/3 * * *'
+jobs:
+  playwright-demo-dotnet:
+    name: Playwright version 1.25
+    runs-on: ubuntu-latest
+    # stop the job if it runs over 115 minutes
+    # to prevent a hanging process from using CI minutes
+    timeout-minutes: 115
+    steps:
+      - name: Delete old workflows
+        uses: Mattraks/delete-workflow-runs@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          repository: ${{ github.repository }}
+          retain_days: 7
+          keep_minimum_runs: 10
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup .NET Core SDK '6.0.x'
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: '6.0.x'
+      - name: Install dependency Microsoft.Playwright
+        run: dotnet add package Microsoft.Playwright --version 1.25.0
+      - name: Install dependency Microsoft.Playwright.NUnit
+        run: dotnet add package Microsoft.Playwright.NUnit --version 1.25.0
+      - name: Build
+        run: dotnet build
+      - Name: Playwright install
+        run: run playwright install
+      - name: Test
+        run: dotnet test -e BROWSER=chromium --logger trx --results-directory "TestResults-6.0.x"
+      - name: Upload dotnet test results
+        uses: actions/upload-artifact@v3
+        with:
+          name: dotnet-results-6.0.x
+          path: TestResults-6.0.x
+          if-no-files-found: ignore
+      - name: Upload artifacts report
+        uses: actions/upload-artifact@v3
+        with:
+          name: playwright-report
+          path: playwright-report
+          if-no-files-found: ignore
+      - name: Deploy Cypress report
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./playwright-report
+          destination_dir: docs
