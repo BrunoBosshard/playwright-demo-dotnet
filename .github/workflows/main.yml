@@ -39,21 +39,19 @@ jobs:
         run: pwsh ./bin/Debug/net6.0/playwright.ps1 install --with-deps
       - name: Run tests
         run: dotnet test -e BROWSER=chromium --logger trx --results-directory "TestResults-6.0.x"
+      - name: Convert trx test results to html
+        run: cd playwright-demo-dotnet/TestResults-6.0.x | 
+             dotnet tool install -g Samhammer.TrxToHtml | 
+             trx-to-html
       - name: Upload test results
         uses: actions/upload-artifact@v3
         with:
           name: dotnet-results-6.0.x
           path: playwright-demo-dotnet/TestResults-6.0.x
           if-no-files-found: ignore
-      - name: Upload artifacts report
-        uses: actions/upload-artifact@v3
-        with:
-          name: playwright-report
-          path: playwright-demo-dotnet/playwright-report
-          if-no-files-found: ignore
       - name: Deploy Cypress report
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: playwright-demo-dotnet/playwright-report
+          publish_dir: playwright-demo-dotnet/TestResults-6.0.x
           destination_dir: docs
