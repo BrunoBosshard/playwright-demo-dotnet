@@ -9,6 +9,9 @@ jobs:
   playwright-demo-dotnet:
     name: Playwright version 1.25
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./playwright-demo-dotnet
     # stop the job if it runs over 115 minutes
     # to prevent a hanging process from using CI minutes
     timeout-minutes: 115
