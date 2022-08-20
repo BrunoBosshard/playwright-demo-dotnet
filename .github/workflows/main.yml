@@ -36,7 +36,7 @@ jobs:
       - name: Build
         run: dotnet build
       - name: Playwright install
-        run: run playwright install
+        run: pwsh bin\Debug\net6.0\playwright.ps1 install --with-deps
       - name: Test
         run: dotnet test -e BROWSER=chromium --logger trx --results-directory "TestResults-6.0.x"
       - name: Upload dotnet test results
