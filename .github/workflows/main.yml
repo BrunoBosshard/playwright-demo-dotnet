@@ -28,7 +28,9 @@ jobs:
       - name: Setup .NET Core SDK '6.0.x'
         uses: actions/setup-dotnet@v2
         with:
-          dotnet-version: '6.0.x'
+          dotnet-version: | 
+            3.1.x
+            6.0.x
       - name: Install dependency Microsoft.Playwright
         run: dotnet add package Microsoft.Playwright --version 1.25.0
       - name: Install dependency Microsoft.Playwright.NUnit
@@ -39,10 +41,10 @@ jobs:
         run: pwsh ./bin/Debug/net6.0/playwright.ps1 install --with-deps
       - name: Run tests
         run: dotnet test -e BROWSER=chromium --logger trx --results-directory "TestResults-6.0.x"
-      - name: Convert trx test results to html
+      - name: Install trx-to-html
         run: cd TestResults-6.0.x | dotnet tool install -g Samhammer.TrxToHtml
       - name: Execute trx-to-html
-        run: trx-to-html
+        run: cd TestResults-6.0.x | trx-to-html
       - name: Upload test results
         uses: actions/upload-artifact@v3
         with:
