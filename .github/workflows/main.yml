@@ -40,9 +40,9 @@ jobs:
       - name: Run tests
         run: dotnet test -e BROWSER=chromium --logger trx --results-directory "TestResults-6.0.x"
       - name: Convert trx test results to html
-        run: cd TestResults-6.0.x | 
-             dotnet tool install -g Samhammer.TrxToHtml | 
-             trx-to-html
+        run: cd TestResults-6.0.x | dotnet tool install -g Samhammer.TrxToHtml
+      - name: Execute trx-to-html
+        run: trx-to-html
       - name: Upload test results
         uses: actions/upload-artifact@v3
         with:
