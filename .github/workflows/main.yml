@@ -3,7 +3,7 @@ on:
   push:
   workflow_dispatch:
   schedule:
-    # run 5 minutes past every 3rd hour starting at 2 AM
+    # run at minute 5 past every 3rd hour from 2 through 23
     - cron: '5 2/3 * * *'
 jobs:
   playwright-demo-dotnet:
@@ -16,7 +16,7 @@ jobs:
     # to prevent a hanging process from using CI minutes
     timeout-minutes: 115
     steps:
-      - name: Delete old workflows
+      - name: Delete workflow runs older than one week
         uses: Mattraks/delete-workflow-runs@v2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -37,7 +37,7 @@ jobs:
         run: dotnet build
       - name: Playwright install
         run: pwsh ./bin/Debug/net6.0/playwright.ps1 install --with-deps
-      - name: Test
+      - name: Run tests
         run: dotnet test -e BROWSER=chromium --logger trx --results-directory "TestResults-6.0.x"
       - name: Upload dotnet test results
         uses: actions/upload-artifact@v3
