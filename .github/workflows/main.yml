@@ -13,7 +13,8 @@ jobs:
     # to prevent a hanging process from using CI minutes
     timeout-minutes: 115
     steps:
-      - uses: Mattraks/delete-workflow-runs@v2
+      - name: Delete old workflows
+        uses: Mattraks/delete-workflow-runs@v2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           repository: ${{ github.repository }}
@@ -31,7 +32,7 @@ jobs:
         run: dotnet add package Microsoft.Playwright.NUnit --version 1.25.0
       - name: Build
         run: dotnet build
-      - Name: Playwright install
+      - name: Playwright install
         run: run playwright install
       - name: Test
         run: dotnet test -e BROWSER=chromium --logger trx --results-directory "TestResults-6.0.x"
