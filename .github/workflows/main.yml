@@ -25,7 +25,7 @@ jobs:
           keep_minimum_runs: 10
       - name: Checkout
         uses: actions/checkout@v3
-      # Version 3.1.x is required for trx-to-html only
+      # Version 3.1.x is required for trx-to-html report generator only
       - name: Setup .NET Core SDK
         uses: actions/setup-dotnet@v2
         with:
@@ -42,11 +42,11 @@ jobs:
         run: pwsh ./bin/Debug/net6.0/playwright.ps1 install --with-deps
       - name: Run tests
         run: dotnet test -e BROWSER=chromium --logger trx --results-directory "TestResults-6.0.x"
-      - name: Install trx-to-html
+      - name: Install trx-to-html report generator
         run: cd TestResults-6.0.x | dotnet tool install -g Samhammer.TrxToHtml
-      - name: Run trx-to-html
+      - name: Run trx-to-html to generate html report
         run: cd TestResults-6.0.x | trx-to-html
-      - name: Move and rename html report
+      - name: Move and rename trx-to-html generated html report
         run: mv ./TestResults.html ./TestResults-6.0.x/index.html
       - name: Upload test results
         uses: actions/upload-artifact@v3
