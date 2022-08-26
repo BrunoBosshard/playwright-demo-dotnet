@@ -41,7 +41,7 @@ jobs:
       - name: Playwright install
         run: pwsh ./bin/Debug/net6.0/playwright.ps1 install --with-deps
       - name: Run tests
-        run: dotnet test -e BROWSER=chromium --logger trx --results-directory "TestResults-6.0.x"
+        run: dotnet test -e BROWSER=chromium --logger trx --logger html --results-directory "TestResults-6.0.x"
       - name: Install trx-to-html report generator
         run: dotnet tool install -g Samhammer.TrxToHtml
       - name: Run trx-to-html to generate html report
