@@ -40,7 +40,7 @@ jobs:
       - name: Run tests
         run: dotnet test -e BROWSER=chromium --logger trx --logger html --results-directory "TestResults-6.0.x"
       - name: Rename html report file
-        run: mv playwright-demo-dotnet/TestResults-6.0.x/TestResult*.html playwright-demo-dotnet/TestResults-6.0.x/index.html
+        run: mv TestResults-6.0.x/TestResult*.html TestResults-6.0.x/index.html
       # results include videos
       - name: Upload playwright results
         uses: actions/upload-artifact@v3
