@@ -29,18 +29,16 @@ jobs:
         uses: actions/setup-dotnet@v2
         with:
           dotnet-version: 6.0.x
-      - name: Install dependency Microsoft.Playwright
-        run: dotnet add package Microsoft.Playwright --version 1.25.0
-      - name: Install dependency Microsoft.Playwright.NUnit
-        run: dotnet add package Microsoft.Playwright.NUnit --version 1.25.0
       - name: Build
         run: dotnet build
       - name: Playwright install
         run: pwsh ./bin/Debug/net6.0/playwright.ps1 install --with-deps
       - name: Run tests
         run: dotnet test -e BROWSER=chromium --logger trx --logger html --results-directory "TestResults-6.0.x"
-      - name: Rename html report file
-        run: mv TestResults-6.0.x/TestResult*.html TestResults-6.0.x/index.html
+      - name: Create report folder
+        run: mkdir -m777 public
+      - name: Copy html report file
+        run: mv ./TestResults-6.0.x/TestResult*.html ./public/index.html
       # results include videos
       - name: Upload playwright results
         uses: actions/upload-artifact@v3
@@ -52,5 +50,5 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: playwright-demo-dotnet/TestResults-6.0.x
+          publish_dir: ./public
           destination_dir: docs
