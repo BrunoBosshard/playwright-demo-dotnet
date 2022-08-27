@@ -43,7 +43,7 @@ jobs:
       - name: Upload playwright results
         uses: actions/upload-artifact@v3
         with:
-          name: playwright-results
+          name: playwright-report
           path: playwright-demo-dotnet/TestResults-6.0.x
           if-no-files-found: ignore
       - name: Deploy Cypress report
