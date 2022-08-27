@@ -38,7 +38,7 @@ jobs:
       - name: Create report folder
         run: mkdir -m777 public
       - name: Copy html report file
-        run: mv ./TestResults-6.0.x/TestResult*.html ./public/index.html
+        run: cp ./TestResults-6.0.x/TestResult*.html ./public/index.html
       # results include videos
       - name: Upload playwright results
         uses: actions/upload-artifact@v3
