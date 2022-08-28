@@ -38,7 +38,7 @@ jobs:
       - name: Create report folder
         run: mkdir -m777 public
       - name: Copy html report file
-        run: cp ./TestResults-6.0.x/TestResult*.html ./public/index.html
+        run: cp TestResults-6.0.x/TestResult*.html public/index.html
       # results include videos
       - name: Upload playwright results
         uses: actions/upload-artifact@v3
@@ -50,5 +50,5 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public
+          publish_dir: public
           destination_dir: docs
