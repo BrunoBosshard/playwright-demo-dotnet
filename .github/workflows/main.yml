@@ -39,6 +39,8 @@ jobs:
         run: mkdir -m777 public
       - name: Copy html report file
         run: cp ./TestResults-6.0.x/TestResult*.html ./public/index.html
+      - name: Show files
+        run: ls -R
       # results include videos
       - name: Upload playwright results
         uses: actions/upload-artifact@v3
