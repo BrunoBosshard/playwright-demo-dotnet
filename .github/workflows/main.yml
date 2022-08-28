@@ -40,7 +40,7 @@ jobs:
       - name: Copy html report file
         run: cp ./TestResults-6.0.x/TestResult*.html ./public/index.html
       - name: Show files
-        run: ls -R
+        run: ls ./public
       # results include videos
       - name: Upload playwright results
         uses: actions/upload-artifact@v3
@@ -48,7 +48,7 @@ jobs:
           name: playwright-report
           path: playwright-demo-dotnet/TestResults-6.0.x
           if-no-files-found: ignore
-      - name: Deploy Cypress report
+      - name: Deploy playwright report
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
