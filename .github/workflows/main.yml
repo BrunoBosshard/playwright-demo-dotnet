@@ -33,6 +33,7 @@ jobs:
         run: dotnet build
       - name: Playwright install
         run: pwsh ./bin/Debug/net6.0/playwright.ps1 install --with-deps
+      # Include the argument "-s <filename>" to use a ".runsettings" file
       - name: Run tests
         run: dotnet test -e BROWSER=chromium --logger trx --logger html --results-directory "TestResults-6.0.x"
       - name: Create report folder
