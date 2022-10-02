@@ -3,8 +3,8 @@ on:
   push:
   workflow_dispatch:
   schedule:
-    # run at minute 5 past every 3rd hour from 2 through 23
-    - cron: '5 2/3 * * *'
+    # run at minute 5 past every 4th hour from 2 through 23
+    - cron: '5 2/4 * * *'
 jobs:
   playwright-demo-dotnet:
     name: Playwright version 1.25
