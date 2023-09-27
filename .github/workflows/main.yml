@@ -7,7 +7,7 @@ on:
     - cron: '5 2/4 * * *'
 jobs:
   playwright-demo-dotnet:
-    name: Playwright version 1.25
+    name: Playwright version 1.38
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -26,26 +26,26 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Setup .NET Core SDK
-        uses: actions/setup-dotnet@v2
+        uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: 6.0.x
+          dotnet-version: 7.0.x
       - name: Build
         run: dotnet build
       - name: Playwright install
-        run: pwsh ./bin/Debug/net6.0/playwright.ps1 install --with-deps
+        run: pwsh ./bin/Debug/net7.0/playwright.ps1 install --with-deps
       # Include the argument "-s <filename>" to use a ".runsettings" file
       - name: Run tests
-        run: dotnet test -e BROWSER=chromium --logger trx --logger html --results-directory "TestResults-6.0.x"
+        run: dotnet test -e BROWSER=chromium --logger trx --logger html --results-directory "TestResults-7.0.x"
       - name: Create report folder
         run: mkdir -m777 ../public
       - name: Copy html report file
-        run: cp TestResults-6.0.x/TestResult*.html ../public/index.html
+        run: cp TestResults-7.0.x/TestResult*.html ../public/index.html
       # results include videos
       - name: Upload playwright results
         uses: actions/upload-artifact@v3
         with:
           name: playwright-report
-          path: playwright-demo-dotnet/TestResults-6.0.x
+          path: playwright-demo-dotnet/TestResults-7.0.x
           if-no-files-found: ignore
       - name: Deploy playwright report
         uses: peaceiris/actions-gh-pages@v3
