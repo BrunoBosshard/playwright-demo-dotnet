@@ -7,7 +7,7 @@ on:
     - cron: '5 2/4 * * *'
 jobs:
   playwright-demo-dotnet:
-    name: Playwright version 1.38
+    name: Playwright version 1.47
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -24,9 +24,9 @@ jobs:
           retain_days: 7
           keep_minimum_runs: 10
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Setup .NET Core SDK
-        uses: actions/setup-dotnet@v3
+        uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 7.0.x
       - name: Build
@@ -42,7 +42,7 @@ jobs:
         run: cp TestResults-7.0.x/TestResult*.html ../public/index.html
       # results include videos
       - name: Upload playwright results
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: playwright-report
           path: playwright-demo-dotnet/TestResults-7.0.x
